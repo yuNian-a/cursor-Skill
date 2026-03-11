@@ -1,0 +1,49 @@
+{
+  "base_url": "https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent",
+  "endpoints": {
+    "information_list": {
+      "path": "/informationList",
+      "method": "POST",
+      "description": "获取资讯列表",
+      "function": "getInformationList",
+      "required_params": ["category", "page_size"],
+      "optional_params": ["keyword", "news_id", "user_id"]
+    },
+    "banner_list": {
+      "path": "/banner/list",
+      "method": "GET",
+      "description": "获取Banner列表",
+      "function": "getBannerListNew",
+      "required_params": [],
+      "optional_params": [],
+      "auth": {
+        "type": "cookie",
+        "name": "sl-session"
+      }
+    },
+    "banner_detail": {
+      "path": "/bannerDetail",
+      "method": "POST",
+      "description": "获取Banner详情",
+      "function": "getXcfDetail",
+      "required_params": ["id"],
+      "optional_params": []
+    }
+  },
+  "categories": [
+    "discover",
+    "subscribe",
+    "ai",
+    "rwa",
+    "macro",
+    "industry",
+    "market",
+    "company",
+    "viewpoint",
+    "fund",
+    "bond",
+    "bill",
+    "stock"
+  ]
+}
+
