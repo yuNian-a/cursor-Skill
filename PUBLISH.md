@@ -28,8 +28,8 @@ chmod +x scripts/publish.sh
 # 1. 检查包内容
 npm pack --dry-run
 
-# 2. 发布
-npm publish
+# 2. 发布 (scoped package 需要 --access public)
+npm publish --access public
 ```
 
 ### 3. 发布后使用
@@ -38,10 +38,10 @@ npm publish
 
 ```bash
 # 列出所有可用的 skills
-npx cursor-skills list
+npx @mierhaosi3/cursor-skills list
 
 # 安装指定的 skill
-npx cursor-skills install news-agent-api
+npx @mierhaosi3/cursor-skills install news-agent-api
 ```
 
 ### 4. 更新版本

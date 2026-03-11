@@ -3,7 +3,7 @@
 # 发布脚本
 # 使用方法: ./scripts/publish.sh
 
-echo "📦 准备发布 cursor-skills 到 npm..."
+echo "📦 准备发布 @mierhaosi3/cursor-skills 到 npm..."
 
 # 检查是否已登录 npm
 if ! npm whoami &> /dev/null; then
@@ -24,14 +24,14 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
   exit 1
 fi
 
-# 发布
+# 发布 (scoped package 需要 --access public)
 echo "🚀 正在发布..."
-npm publish
+npm publish --access public
 
 if [ $? -eq 0 ]; then
   echo "✅ 发布成功!"
   echo "📦 用户现在可以使用以下命令安装:"
-  echo "   npx cursor-skills install news-agent-api"
+  echo "   npx @mierhaosi3/cursor-skills install news-agent-api"
 else
   echo "❌ 发布失败"
   exit 1
