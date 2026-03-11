@@ -5,9 +5,9 @@
 ## 目录
 
 - [接口详细说明](#接口详细说明)
-- [Banner查询自动化流程](#banner查询自动化流程)
-- [场景预设](#场景预设)
+- [AI热闻查询自动化流程](#ai热闻查询自动化流程)
 - [通用注意事项](#通用注意事项)
+- [场景预设](#场景预设)
 
 ---
 
@@ -51,56 +51,7 @@
 
 ---
 
-### 2. 获取收益率最高的20条基金
-
-**接口信息：**
-- 接口地址：`/flp-news-api/v1/news-agent/topFundsByReturn`
-- 请求方法：GET
-- 完整路径：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/topFundsByReturn`
-
-**参数：**
-- 此接口为 GET 请求，无需请求体参数
-
-**响应参数：**
-返回数据为 `data[List]`，列表中的每个对象包含：
-- `isin`: ISIN代码（string）- 例如："LU0496367417"
-- `name`: 资产名称/公司名称（string）- 例如："BRAND ENGAGEMENT NETWORK"
-- `currency`: 币种（string）
-- `return_rate`: 最新成交价格（string）- 例如："222.3881"
-
-**使用说明：**
-- 此接口返回收益率最高的20条基金数据
-- 数据按收益率从高到低排序
-- 用于首页展示基金排行榜
-
----
-
-### 3. 获取收益率最高的20条股票
-
-**接口信息：**
-- 接口地址：`/flp-news-api/v1/news-agent/topStocksByReturn`
-- 请求方法：GET
-- 完整路径：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/topStocksByReturn`
-- 注意：文档中路径可能为 `topFundsByReturn`，实际应为 `topStocksByReturn`，请以实际接口为准
-
-**参数：**
-- 此接口为 GET 请求，无需请求体参数
-
-**响应参数：**
-返回数据为 `data[List]`，列表中的每个对象包含：
-- `ticker`: 资产代码/股票代码（string）- 例如："BNAI.US"
-- `name`: 资产名称/公司名称（string）- 例如："BRAND ENGAGEMENT NETWORK"
-- `change_rate`: 涨跌幅/回报率（百分比）（string）- 例如："90.3"
-- `total_news_yesterday`: 最新成交价格（string）- 例如："16.48"
-
-**使用说明：**
-- 此接口返回收益率最高的20条股票数据
-- 数据按收益率从高到低排序
-- 用于首页展示股票排行榜
-
----
-
-### 4. 资讯列表接口
+### 2. 资讯列表接口
 
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/informationList`
@@ -167,7 +118,7 @@
 
 ---
 
-### 5. AI热闻列表接口
+### 3. AI热闻列表接口
 
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/banner/list`
@@ -193,7 +144,7 @@
 
 ---
 
-### 6. AI热闻详情接口
+### 4. AI热闻详情接口
 
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/bannerDetail`
