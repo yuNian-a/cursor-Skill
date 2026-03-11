@@ -13,7 +13,7 @@
 
 ## 接口详细说明
 
-### 1. 首页财经早餐接口
+### 1. 财经早餐接口
 
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/financeBreakfast`
@@ -23,18 +23,30 @@
 **参数：**
 - 此接口为 POST 请求，请求体参数根据实际业务需求确定
 
+**时间逻辑说明：**
+- 此接口会根据当前时间自动返回不同类型的内容：
+  - **财经早餐**：通常在早晨时段返回（`tag: 1`）
+  - **港股午盘**：通常在中午时段返回（`tag: 3`）
+  - **港股收盘**：通常在收盘时段返回（`tag: 2`，也称为"收盘汇"）
+- 接口会根据服务器当前时间自动判断应该返回哪种类型的内容
+- 无需在请求中指定时间或类型，接口会自动返回对应时段的内容
+
 **响应参数：**
-- `title`: 标题（string）- 财经早餐或收盘汇
-- `keyword`: 财经早餐关键词（Array）- 例如：["加密货币", "产业趋势"]
+- `title`: 标题（string）- 根据时间返回"财经早餐"、"港股午盘"或"港股收盘"等
+- `keyword`: 关键词（Array）- 例如：["加密货币", "产业趋势"]
 - `publish_time`: 发布时间（string）
 - `summary`: 摘要（string）
 - `newsCount`: 过去一天资讯数量（number）
 - `sentiment`: 市场情绪（string）- 枚举值
 - `title_original`: 原始title（string）
-- `tag`: 类型标识（int）- 1:财经早餐，2:收盘汇
+- `tag`: 类型标识（int）
+  - `1`: 财经早餐
+  - `2`: 港股收盘（收盘汇）
+  - `3`: 港股午盘
 
 **使用说明：**
-- 此接口用于获取首页财经早餐或收盘汇信息
+- 此接口用于获取首页财经早餐、港股午盘或港股收盘信息
+- 接口会根据当前时间自动返回对应时段的内容，无需指定时间参数
 - 返回数据包含关键词、摘要、市场情绪等综合信息
 
 ---
@@ -97,7 +109,20 @@
 
 **请求参数：**
 - 必填参数：
-  - `category`: 新闻分类（string），可选值：`"discover"`, `"subscribe"`, `"ai"`, `"rwa"`, `"macro"`, `"industry"`, `"market"`, `"company"`, `"viewpoint"`, `"fund"`, `"bond"`, `"bill"`, `"stock"`
+  - `category`: 新闻分类（string），可选值：
+    - `"discover"` - 发现
+    - `"subscribe"` - 订阅
+    - `"ai"` - AI
+    - `"rwa"` - RWA
+    - `"macro"` - 宏观
+    - `"industry"` - 行业
+    - `"market"` - 市场
+    - `"company"` - 公司
+    - `"viewpoint"` - 观点
+    - `"fund"` - 基金
+    - `"bond"` - 债券
+    - `"bill"` - 票据
+    - `"stock"` - 股票
   - `page_size`: 每页加载条数（number，注意：参数名使用下划线 `page_size`，不是驼峰 `pageSize`）
 - 可选参数：
   - `keyword`: 关键词检索（string）
@@ -142,7 +167,7 @@
 
 ---
 
-### 5. Banner列表接口
+### 5. AI热闻列表接口
 
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/banner/list`
@@ -158,7 +183,7 @@
 - 需要在请求头中携带 Cookie 认证信息（如 `sl-session`）
 
 **返回数据：**
-- `banner_list`: Banner列表数组，每个Banner包含：
+- `banner_list`: AI热闻列表数组，每个热闻包含：
   - `news_id`: 新闻ID
   - `xcf_id`: XCF资讯ID
   - `tag`: 标签数组
@@ -168,7 +193,7 @@
 
 ---
 
-### 6. Banner详情接口
+### 6. AI热闻详情接口
 
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/bannerDetail`
@@ -177,60 +202,60 @@
 
 **参数：**
 - 必填参数：
-  - `id`: XCF资讯ID（来自banner的 `xcf_id` 字段），类型为字符串
+  - `id`: XCF资讯ID（来自AI热闻列表的 `xcf_id` 字段），类型为字符串
 
 **请求说明：**
-- POST 请求，请求体包含 `id` 字段（XCF资讯ID，来自banner的 `xcf_id` 字段）
+- POST 请求，请求体包含 `id` 字段（XCF资讯ID，来自AI热闻列表的 `xcf_id` 字段）
 - 请求体格式：`{ "id": "21640" }`
 
 **返回数据：**
-- 返回 `XcfDetail` 类型的数据，包含Banner的详细信息
+- 返回 `XcfDetail` 类型的数据，包含AI热闻的详细信息
 
 ---
 
-## Banner查询自动化流程
+## AI热闻查询自动化流程
 
-**重要：当需要查询Banner详情时，必须使用此自动化流程。**
+**重要：当需要查询AI热闻详情时，必须使用此自动化流程。**
 
 ### 自动化流程说明
 
-当调用Banner查询时，系统会自动执行以下步骤：
+当调用AI热闻查询时，系统会自动执行以下步骤：
 
-1. **自动查询Banner列表**
-   - 调用 GET `/flp-news-api/v1/news-agent/banner/list` 获取所有Banner
+1. **自动查询AI热闻列表**
+   - 调用 GET `/flp-news-api/v1/news-agent/banner/list` 获取所有AI热闻
    
 2. **自动提取所有xcf_id**
    - 从返回的 `banner_list` 中提取所有的 `xcf_id`
-   - 通常返回3个Banner，每个Banner都有一个 `xcf_id`
+   - 通常返回3个AI热闻，每个热闻都有一个 `xcf_id`
    
 3. **自动批量查询详情**
    - 使用提取的所有 `xcf_id`，分别调用 POST `/flp-news-api/v1/news-agent/bannerDetail` 接口
-   - 获取每个Banner的完整详情信息
+   - 获取每个AI热闻的完整详情信息
 
 ### 执行步骤说明
 
-1. **步骤1：获取Banner列表**
+1. **步骤1：获取AI热闻列表**
    - 调用 GET `/flp-news-api/v1/news-agent/banner/list` 接口
-   - 从响应的 `data.banner_list` 中获取所有Banner
+   - 从响应的 `data.banner_list` 中获取所有AI热闻
 
 2. **步骤2：提取所有xcf_id**
-   - 遍历 `banner_list`，提取每个Banner的 `xcf_id` 字段
+   - 遍历 `banner_list`，提取每个AI热闻的 `xcf_id` 字段
    - 过滤掉为 null 或 undefined 的 `xcf_id`
 
 3. **步骤3：批量查询详情**
    - 对每个 `xcf_id`，直接使用 HTTP POST 请求调用 `/flp-news-api/v1/news-agent/bannerDetail` 接口
    - 请求体格式：`{ "id": "xcf_id值" }`
    - 建议使用并行请求提高效率
-   - 如果某个详情查询失败，记录错误但继续处理其他Banner
+   - 如果某个详情查询失败，记录错误但继续处理其他AI热闻
    - **注意**：必须直接使用 HTTP 请求，不要创建封装函数
 
 ### 执行规则
 
 **必须遵循以下规则：**
-1. 查询Banner详情时，必须先查询Banner列表
+1. 查询AI热闻详情时，必须先查询AI热闻列表
 2. 必须提取列表中的所有 `xcf_id`（不能只查询部分）
 3. 必须使用所有提取的 `xcf_id` 分别调用详情接口
-4. 如果某个详情查询失败，应该记录错误但继续处理其他Banner
+4. 如果某个详情查询失败，应该记录错误但继续处理其他AI热闻
 5. 建议使用并行请求以提高效率
 
 ---
@@ -243,19 +268,19 @@
 当用户询问"给我十条资讯"、"给我十条新闻"、"给我十条XX方面的资讯"等类似问题时，必须执行以下流程。
 
 **分类映射规则：**
-- 如果用户未指定分类或只问"给我十条资讯"，使用 `category: 'discover'`（发现分类）
+- 如果用户未指定分类或只问"给我十条资讯"，使用 `category: 'discover'`（发现）
 - 如果用户明确指定分类，按以下映射：
-  - "AI方面的资讯"、"AI资讯"、"人工智能资讯" → `category: 'ai'`
-  - "RWA方面的资讯"、"RWA资讯" → `category: 'rwa'`
-  - "宏观方面的资讯"、"宏观资讯" → `category: 'macro'`
-  - "行业方面的资讯"、"行业资讯" → `category: 'industry'`
-  - "市场方面的资讯"、"市场资讯" → `category: 'market'`
-  - "公司方面的资讯"、"公司资讯" → `category: 'company'`
-  - "观点方面的资讯"、"观点资讯" → `category: 'viewpoint'`
-  - "基金方面的资讯"、"基金资讯" → `category: 'fund'`
-  - "债券方面的资讯"、"债券资讯" → `category: 'bond'`
-  - "票据方面的资讯"、"票据资讯" → `category: 'bill'`
-  - "股票方面的资讯"、"股票资讯" → `category: 'stock'`
+  - "AI方面的资讯"、"AI资讯"、"人工智能资讯" → `category: 'ai'`（AI）
+  - "RWA方面的资讯"、"RWA资讯" → `category: 'rwa'`（RWA）
+  - "宏观方面的资讯"、"宏观资讯" → `category: 'macro'`（宏观）
+  - "行业方面的资讯"、"行业资讯" → `category: 'industry'`（行业）
+  - "市场方面的资讯"、"市场资讯" → `category: 'market'`（市场）
+  - "公司方面的资讯"、"公司资讯" → `category: 'company'`（公司）
+  - "观点方面的资讯"、"观点资讯" → `category: 'viewpoint'`（观点）
+  - "基金方面的资讯"、"基金资讯" → `category: 'fund'`（基金）
+  - "债券方面的资讯"、"债券资讯" → `category: 'bond'`（债券）
+  - "票据方面的资讯"、"票据资讯" → `category: 'bill'`（票据）
+  - "股票方面的资讯"、"股票资讯" → `category: 'stock'`（股票）
 
 **执行流程：**
 
@@ -284,21 +309,21 @@
 
 **执行流程：**
 
-1. **查询Banner列表**
-   - 调用 GET `/flp-news-api/v1/news-agent/banner/list` 获取所有Banner
-   - Banner列表通常包含今日最热门的AI相关资讯
+1. **查询AI热闻列表**
+   - 调用 GET `/flp-news-api/v1/news-agent/banner/list` 获取所有AI热闻
+   - AI热闻列表通常包含今日最热门的AI相关资讯
 
-2. **查询Banner详情**
-   - 从Banner列表中提取所有 `xcf_id`
-   - 使用所有 `xcf_id` 分别调用 POST `/flp-news-api/v1/news-agent/bannerDetail` 获取每个Banner的完整详情
+2. **查询AI热闻详情**
+   - 从AI热闻列表中提取所有 `xcf_id`
+   - 使用所有 `xcf_id` 分别调用 POST `/flp-news-api/v1/news-agent/bannerDetail` 获取每个AI热闻的完整详情
    - 请求体格式：`{ "id": "xcf_id值" }`
-   - 必须查询所有Banner的详情，不能只查询部分
+   - 必须查询所有AI热闻的详情，不能只查询部分
 
 **重要提示：**
-- ✅ 当用户询问"今日的AI热闻"时，必须执行完整的Banner查询流程
-- ✅ 必须先查询Banner列表，再查询详情
-- ✅ 必须查询所有Banner的详情，不能遗漏
-- ❌ 不能直接查询资讯列表接口，必须使用Banner相关接口
+- ✅ 当用户询问"今日的AI热闻"时，必须执行完整的AI热闻查询流程
+- ✅ 必须先查询AI热闻列表，再查询详情
+- ✅ 必须查询所有AI热闻的详情，不能遗漏
+- ❌ 不能直接查询资讯列表接口，必须使用AI热闻相关接口
 
 ---
 
@@ -316,7 +341,11 @@
 
 **重要说明：**
 - **财经早餐、港股午盘、港股收盘都代表调用同一个接口**：`/flp-news-api/v1/news-agent/financeBreakfast`
-- 接口返回的 `tag` 字段会标识类型：1表示财经早餐，2表示收盘汇，3表示港股午盘等
+- **接口会根据当前时间自动返回不同类型的内容**：
+  - 早晨时段：返回财经早餐（`tag: 1`）
+  - 中午时段：返回港股午盘（`tag: 3`）
+  - 收盘时段：返回港股收盘（`tag: 2`，也称为"收盘汇"）
+- 接口返回的 `tag` 字段会标识类型：1表示财经早餐，2表示港股收盘（收盘汇），3表示港股午盘
 - 接口返回的 `title` 字段会显示具体标题（如"财经早餐"、"港股午盘"、"港股收盘"等）
 
 **执行流程：**
@@ -324,12 +353,13 @@
 1. **调用财经早餐接口**
    - 调用 POST `/flp-news-api/v1/news-agent/financeBreakfast` 接口
    - 请求体参数根据实际业务需求确定
+   - 接口会根据服务器当前时间自动判断返回财经早餐、港股午盘或港股收盘
    - 返回数据包含标题、关键词、摘要、市场情绪等信息
 
 **重要提示：**
 - ✅ 无论用户问"财经早餐"、"港股午盘"还是"港股收盘"，都调用同一个接口
-- ✅ 接口会根据时间自动返回对应类型的内容（财经早餐、午盘、收盘等）
-- ✅ 返回的 `tag` 字段标识内容类型，`title` 字段显示具体标题
+- ✅ 接口会根据当前时间自动返回对应类型的内容，无需在请求中指定时间或类型
+- ✅ 返回的 `tag` 字段标识内容类型（1:财经早餐，2:港股收盘，3:港股午盘），`title` 字段显示具体标题
 - ✅ 返回数据包含关键词、摘要、市场情绪等综合信息
 
 ---
@@ -412,17 +442,17 @@
      - `page_size`: 根据用户询问确定的数量（如 10、20、5 等）
 
 **分类映射规则：**
-- "AI"、"人工智能" → `category: 'ai'`
-- "RWA" → `category: 'rwa'`
-- "宏观" → `category: 'macro'`
-- "行业" → `category: 'industry'`
-- "市场" → `category: 'market'`
-- "公司" → `category: 'company'`
-- "观点" → `category: 'viewpoint'`
-- "基金" → `category: 'fund'`
-- "债券" → `category: 'bond'`
-- "票据" → `category: 'bill'`
-- "股票" → `category: 'stock'`
+- "AI"、"人工智能" → `category: 'ai'`（AI）
+- "RWA" → `category: 'rwa'`（RWA）
+- "宏观" → `category: 'macro'`（宏观）
+- "行业" → `category: 'industry'`（行业）
+- "市场" → `category: 'market'`（市场）
+- "公司" → `category: 'company'`（公司）
+- "观点" → `category: 'viewpoint'`（观点）
+- "基金" → `category: 'fund'`（基金）
+- "债券" → `category: 'bond'`（债券）
+- "票据" → `category: 'bill'`（票据）
+- "股票" → `category: 'stock'`（股票）
 
 **数量解析规则：**
 - "一条"、"1条" → `page_size: 1`
@@ -531,5 +561,5 @@
 
 6. **响应处理**：接口返回格式为 `{ code: 200, data: {...} }`，需要检查 `code` 字段判断请求是否成功，并从 `data` 字段获取实际数据
 
-7. **Banner查询自动化**：查询Banner详情时必须使用自动化流程，先查列表再查详情
+7. **AI热闻查询自动化**：查询AI热闻详情时必须使用自动化流程，先查列表再查详情
 
