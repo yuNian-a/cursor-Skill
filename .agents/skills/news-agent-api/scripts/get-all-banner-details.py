@@ -25,7 +25,11 @@ COOKIE = "sl-session=Lls7F99YsWmriMqia1tQuA=="
 #     'http': 'http://proxy.example.com:8080',
 #     'https': 'http://proxy.example.com:8080'
 # }
-PROXIES = None
+# 明确禁用代理，避免环境变量中的代理设置影响
+PROXIES = {
+    'http': None,
+    'https': None
+}
 
 
 def get_banner_list() -> Dict[str, Any]:
@@ -41,7 +45,10 @@ def get_banner_list() -> Dict[str, Any]:
     }
     
     try:
-        response = requests.get(url, headers=headers, proxies=PROXIES, timeout=10)
+        # 禁用环境变量中的代理设置
+        session = requests.Session()
+        session.trust_env = False
+        response = session.get(url, headers=headers, proxies=PROXIES, timeout=10)
         response.raise_for_status()
         result = response.json()
         
@@ -88,7 +95,10 @@ def get_banner_detail(xcf_id: str) -> Dict[str, Any]:
     }
     
     try:
-        response = requests.post(url, headers=headers, json=data, proxies=PROXIES, timeout=10)
+        # 禁用环境变量中的代理设置
+        session = requests.Session()
+        session.trust_env = False
+        response = session.post(url, headers=headers, json=data, proxies=PROXIES, timeout=10)
         response.raise_for_status()
         result = response.json()
         

@@ -324,6 +324,73 @@ python scripts/get-all-banner-details.py
 
 ## 完整使用流程
 
+### 场景预设：用户询问"今日的AI热闻"
+
+**触发条件：**
+当用户询问"今日的AI热闻"或类似问题时（如"今天的AI热点"、"AI热门新闻"等），必须执行以下流程。
+
+**执行流程：**
+
+1. **查询Banner列表**
+   - 调用 `getBannerListNew()` 获取所有Banner
+   - Banner列表通常包含今日最热门的AI相关资讯
+
+2. **查询Banner详情**
+   - 从Banner列表中提取所有 `xcf_id`
+   - 使用所有 `xcf_id` 分别调用 `getXcfDetail()` 获取每个Banner的完整详情
+   - 必须查询所有Banner的详情，不能只查询部分
+
+**实现示例：**
+
+```typescript
+import { getBannerListNew, getXcfDetail } from '@/api/news';
+
+async function getTodayAIHotNews() {
+  try {
+    // 步骤1: 获取Banner列表（今日AI热闻）
+    const bannerListResponse = await getBannerListNew();
+    
+    if (!bannerListResponse.banner_list || bannerListResponse.banner_list.length === 0) {
+      return {
+        message: '暂无今日AI热闻',
+        banners: []
+      };
+    }
+    
+    // 步骤2: 提取所有xcf_id
+    const xcfIds = bannerListResponse.banner_list
+      .map(banner => banner.xcf_id)
+      .filter(id => id != null);
+    
+    // 步骤3: 批量查询所有Banner详情
+    const detailPromises = xcfIds.map(xcfId => 
+      getXcfDetail(xcfId.toString())
+        .then(detail => ({ xcfId, detail, success: true }))
+        .catch(error => ({ xcfId, detail: null, error, success: false }))
+    );
+    
+    const details = await Promise.all(detailPromises);
+    
+    return {
+      message: `找到 ${details.length} 条今日AI热闻`,
+      banners: bannerListResponse.banner_list,
+      details: details
+    };
+  } catch (error) {
+    console.error('获取今日AI热闻失败:', error);
+    throw error;
+  }
+}
+```
+
+**重要提示：**
+- ✅ 当用户询问"今日的AI热闻"时，必须执行完整的Banner查询流程
+- ✅ 必须先查询Banner列表，再查询详情
+- ✅ 必须查询所有Banner的详情，不能遗漏
+- ❌ 不能直接查询资讯列表接口，必须使用Banner相关接口
+
+---
+
 ### 场景：加载新闻页面
 
 ```typescript
