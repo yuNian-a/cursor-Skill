@@ -72,6 +72,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 - **接口**：POST `https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast`
 - **请求头**：`Content-Type: application/json`
 - **请求体参数**：无需请求体参数
+- **说明**：此接口会根据当前时间自动返回对应时段的内容（早晨返回财经早餐，中午返回港股午盘，收盘时段返回港股收盘），无需在请求中指定时间或类型
 
 ---
 
