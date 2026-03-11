@@ -324,7 +324,81 @@ python scripts/get-all-banner-details.py
 
 ## 完整使用流程
 
-### 场景预设：用户询问"今日的AI热闻"
+### 场景预设1：用户询问"给我十条资讯"或"给我十条XX方面的资讯"
+
+**触发条件：**
+当用户询问"给我十条资讯"、"给我十条新闻"、"给我十条XX方面的资讯"等类似问题时，必须执行以下流程。
+
+**分类映射规则：**
+- 如果用户未指定分类或只问"给我十条资讯"，使用 `category: 'discover'`（发现分类）
+- 如果用户明确指定分类，按以下映射：
+  - "AI方面的资讯"、"AI资讯"、"人工智能资讯" → `category: 'ai'`
+  - "RWA方面的资讯"、"RWA资讯" → `category: 'rwa'`
+  - "宏观方面的资讯"、"宏观资讯" → `category: 'macro'`
+  - "行业方面的资讯"、"行业资讯" → `category: 'industry'`
+  - "市场方面的资讯"、"市场资讯" → `category: 'market'`
+  - "公司方面的资讯"、"公司资讯" → `category: 'company'`
+  - "观点方面的资讯"、"观点资讯" → `category: 'viewpoint'`
+  - "基金方面的资讯"、"基金资讯" → `category: 'fund'`
+  - "债券方面的资讯"、"债券资讯" → `category: 'bond'`
+  - "票据方面的资讯"、"票据资讯" → `category: 'bill'`
+  - "股票方面的资讯"、"股票资讯" → `category: 'stock'`
+
+**执行流程：**
+
+1. **确定分类**
+   - 根据用户询问内容，确定对应的 `category` 参数
+   - 如果未指定分类，默认使用 `'discover'`
+
+2. **查询资讯列表**
+   - 调用 `getInformationList()` 接口
+   - 参数设置：`category` 为确定的分类，`page_size: 10`
+   - 返回10条对应分类的资讯
+
+**实现示例：**
+
+```typescript
+import { getInformationList } from '@/api/news';
+
+async function getNewsList(category: string = 'discover', pageSize: number = 10) {
+  try {
+    const response = await getInformationList({
+      category: category,
+      page_size: pageSize
+    });
+    
+    if (!response.information_list || response.information_list.length === 0) {
+      return {
+        message: `暂无${category}分类的资讯`,
+        newsList: []
+      };
+    }
+    
+    return {
+      message: `找到 ${response.information_list.length} 条${category}分类的资讯`,
+      newsList: response.information_list
+    };
+  } catch (error) {
+    console.error('获取资讯列表失败:', error);
+    throw error;
+  }
+}
+
+// 使用示例
+// 用户问"给我十条资讯" -> getNewsList('discover', 10)
+// 用户问"给我十条AI方面的资讯" -> getNewsList('ai', 10)
+```
+
+**重要提示：**
+- ✅ 当用户询问"给我十条资讯"时，默认查询 `discover` 分类
+- ✅ 当用户询问"给我十条XX方面的资讯"时，根据XX映射到对应的分类
+- ✅ 必须使用 `getInformationList()` 接口，不是Banner接口
+- ✅ `page_size` 参数名使用下划线，不是驼峰命名
+- ❌ 不要使用Banner相关接口，这是资讯列表查询场景
+
+---
+
+### 场景预设2：用户询问"今日的AI热闻"
 
 **触发条件：**
 当用户询问"今日的AI热闻"或类似问题时（如"今天的AI热点"、"AI热门新闻"等），必须执行以下流程。
