@@ -1,0 +1,30 @@
+{
+  "name": "cursor-skills",
+  "version": "1.0.0",
+  "description": "Cursor Skills 技能包集合 - 可通过 npx 安装到本地项目",
+  "main": "index.js",
+  "bin": {
+    "cursor-skills": "./bin/cursor-skills.js"
+  },
+  "scripts": {
+    "install-skill": "node bin/cursor-skills.js",
+    "publish": "npm publish"
+  },
+  "keywords": [
+    "cursor",
+    "skills",
+    "agent",
+    "ai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "bin",
+    "lib",
+    ".agents"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+

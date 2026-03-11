@@ -1,0 +1,19 @@
+node_modules/
+.git/
+.gitignore
+*.log
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 开发文件
+scripts/
+*.test.js
+*.spec.js
+
+# 文档（如果需要保留在包中，可以删除这些行）
+# README.md
+
