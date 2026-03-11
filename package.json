@@ -1,20 +1,21 @@
 {
-  "name": "cursor-skills",
+  "name": "finloop-news-skills",
   "version": "1.0.0",
-  "description": "Cursor Skills 技能包集合 - 可通过 npx 安装到本地项目",
+  "description": "Finloop News Skills 技能包集合 - 可通过 npx 安装到本地项目",
   "main": "index.js",
   "bin": {
-    "cursor-skills": "./bin/cursor-skills.js"
+    "finloop-news-skills": "./bin/finloop-news-skills.js"
   },
   "scripts": {
-    "install-skill": "node bin/cursor-skills.js",
+    "install-skill": "node bin/finloop-news-skills.js",
     "publish": "npm publish"
   },
   "keywords": [
-    "cursor",
+    "finloop",
+    "news",
     "skills",
     "agent",
-    "ai"
+    "api"
   ],
   "author": "",
   "license": "MIT",
@@ -26,7 +27,5 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {
-    "cursor-skills": "^1.0.0"
-  }
+  "dependencies": {}
 }

@@ -1,0 +1,26 @@
+{
+  "id": "finloop-news-skill",
+  "name": "Finloop 资讯API调用技能",
+  "version": "1.0.0",
+  "description": "当需要调用Finloop资讯相关接口时，请参考此规范。包括财经早餐、基金排行、股票排行、资讯列表、Banner列表、Banner详情等接口。",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "source": {
+    "type": "git",
+    "url": "",
+    "branch": "main",
+    "path": ".agents/skills/finloop-news-skill"
+  },
+  "files": [
+    "SKILL.md",
+    "skill-manifest.json"
+  ],
+  "dependencies": [],
+  "tags": ["api", "news", "finloop", "finance", "agent", "banner"],
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-01T00:00:00Z"
+}
+

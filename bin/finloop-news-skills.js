@@ -10,8 +10,8 @@ async function main() {
     if (command === 'install' || command === 'i') {
       if (!skillName) {
         console.error('❌ 错误: 请指定要安装的 skill 名称');
-        console.log('\n用法: npx @mierhaosi3/cursor-skills install <skill-name>');
-        console.log('\n示例: npx @mierhaosi3/cursor-skills install news-agent-api');
+        console.log('\n用法: npx finloop-news-skills install <skill-name>');
+        console.log('\n示例: npx finloop-news-skills install finloop-news-skill');
         process.exit(1);
       }
       await installSkill(skillName);
@@ -19,10 +19,10 @@ async function main() {
       await listSkills();
     } else if (command === 'help' || command === '--help' || command === '-h' || !command) {
       console.log(`
-📦 Cursor Skills 安装工具
+📦 Finloop News Skills 安装工具
 
 用法:
-  npx @mierhaosi3/cursor-skills <command> [options]
+  npx finloop-news-skills <command> [options]
 
 命令:
   install <skill-name>  安装指定的 skill 到当前项目
@@ -30,14 +30,14 @@ async function main() {
   help                  显示帮助信息
 
 示例:
-  npx @mierhaosi3/cursor-skills install news-agent-api
-  npx @mierhaosi3/cursor-skills list
+  npx finloop-news-skills install finloop-news-skill
+  npx finloop-news-skills list
 
-更多信息请访问: https://github.com/mierhaosi3/cursor-skills
+更多信息请访问: https://github.com/mierhaosi3/finloop-news-skills
       `);
     } else {
       console.error(`❌ 未知命令: ${command}`);
-      console.log('使用 "npx @mierhaosi3/cursor-skills help" 查看帮助信息');
+      console.log('使用 "npx finloop-news-skills help" 查看帮助信息');
       process.exit(1);
     }
   } catch (error) {

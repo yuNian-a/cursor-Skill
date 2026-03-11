@@ -3,7 +3,7 @@
 # 发布脚本
 # 使用方法: ./scripts/publish.sh
 
-echo "📦 准备发布 @mierhaosi3/cursor-skills 到 npm..."
+echo "📦 准备发布 finloop-news-skills 到 npm..."
 
 # 检查是否已登录 npm
 if ! npm whoami &> /dev/null; then
@@ -31,7 +31,7 @@ npm publish --access public
 if [ $? -eq 0 ]; then
   echo "✅ 发布成功!"
   echo "📦 用户现在可以使用以下命令安装:"
-  echo "   npx @mierhaosi3/cursor-skills install news-agent-api"
+  echo "   npx finloop-news-skills install finloop-news-skill"
 else
   echo "❌ 发布失败"
   exit 1

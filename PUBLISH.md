@@ -38,10 +38,10 @@ npm publish --access public
 
 ```bash
 # 列出所有可用的 skills
-npx @mierhaosi3/cursor-skills list
+npx finloop-news-skills list
 
 # 安装指定的 skill
-npx @mierhaosi3/cursor-skills install news-agent-api
+npx finloop-news-skills install finloop-news-skill
 ```
 
 ### 4. 更新版本
