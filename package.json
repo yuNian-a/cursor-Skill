@@ -1,6 +1,6 @@
 {
   "name": "finloop-news-skills",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Finloop News Skills 技能包集合 - 可通过 npx 安装到本地项目",
   "main": "index.js",
   "bin": {
