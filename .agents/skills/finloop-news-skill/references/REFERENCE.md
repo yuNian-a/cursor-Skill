@@ -23,7 +23,7 @@
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/financeBreakfast`
 - 请求方法：POST
-- 完整路径：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast`
+- 完整路径：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast`
 
 **参数：**
 - 此接口为 POST 请求，请求体参数根据实际业务需求确定
@@ -61,7 +61,7 @@
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/informationList`
 - 请求方法：POST
-- 完整路径示例：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/informationList`
+- 完整路径示例：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/informationList`
 
 **请求参数：**
 - 必填参数：
@@ -128,7 +128,7 @@
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/banner/list`
 - 请求方法：GET
-- 完整路径示例：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/banner/list`
+- 完整路径示例：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/banner/list`
 - 注意：此接口可能需要 Cookie 认证（`sl-session`）
 
 **参数：**
@@ -154,7 +154,7 @@
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/bannerDetail`
 - 请求方法：POST
-- 完整路径示例：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/bannerDetail`
+- 完整路径示例：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/bannerDetail`
 
 **参数：**
 - 必填参数：
@@ -174,7 +174,7 @@
 **接口信息：**
 - 接口地址：`/flp-mktdata-hub/v1/stock/quote`
 - 请求方法：POST
-- 完整路径：`https://papi-sit.finloopg.com/flp-mktdata-hub/v1/stock/quote`
+- 完整路径：`https://papi-uat.finloopg.com/flp-mktdata-hub/v1/stock/quote`
 
 **请求头：**
 - `Content-Type: application/json`（必填）

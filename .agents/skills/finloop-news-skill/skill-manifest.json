@@ -1,7 +1,7 @@
 {
   "id": "finloop-news-skill",
   "name": "Finloop 资讯API调用技能",
-  "version": "1.0.9",
+  "version": "1.1.1",
   "description": "当需要调用Finloop资讯相关接口时，请参考此规范。包括市场时段资讯、资讯列表、AI热闻、股票行情。",
   "author": "",
   "repository": {

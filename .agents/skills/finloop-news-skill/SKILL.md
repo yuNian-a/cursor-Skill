@@ -27,8 +27,8 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 1. **必须直接使用 HTTP 请求调用接口**：使用 fetch、axios、curl 或其他 HTTP 客户端直接调用接口，禁止创建任何封装函数或 JS 文件
 2. **禁止创建封装函数**：不要创建任何 `.js`、`.ts` 文件来封装接口调用，必须直接使用 HTTP 请求
 3. **接口基础域名**：
-   - 资讯相关接口：`https://aiapi-sit.finloopg.com`
-   - 股票行情接口：`https://papi-sit.finloopg.com`
+   - 资讯相关接口：`https://ai-uat.finloopg.com`
+   - 股票行情接口：`https://papi-uat.finloopg.com`
 4. **请求头**：`Content-Type: application/json`
 5. **响应格式**：接口返回的数据结构为 `{ code: 200, data: {...} }`，需要从响应中提取 `data` 字段
 6. **错误处理**：需要检查响应状态码和错误信息，进行适当的错误处理
@@ -40,7 +40,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/financeBreakfast`
 - 请求方法：POST
-- 完整路径：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast`
+- 完整路径：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast`
 
 **参数：**
 - 此接口为 POST 请求，请求体参数根据实际业务需求确定
@@ -78,7 +78,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/informationList`
 - 请求方法：POST
-- 完整路径示例：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/informationList`
+- 完整路径示例：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/informationList`
 
 **请求参数：**
 - 必填参数：
@@ -132,7 +132,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/banner/list`
 - 请求方法：GET
-- 完整路径示例：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/banner/list`
+- 完整路径示例：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/banner/list`
 - 注意：此接口可能需要 Cookie 认证（`sl-session`）
 
 **参数：**
@@ -158,7 +158,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 **接口信息：**
 - 接口地址：`/flp-news-api/v1/news-agent/bannerDetail`
 - 请求方法：POST
-- 完整路径示例：`https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/bannerDetail`
+- 完整路径示例：`https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/bannerDetail`
 
 **参数：**
 - 必填参数：
@@ -178,7 +178,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 **接口信息：**
 - 接口地址：`/flp-mktdata-hub/v1/stock/quote`
 - 请求方法：POST
-- 完整路径：`https://papi-sit.finloopg.com/flp-mktdata-hub/v1/stock/quote`
+- 完整路径：`https://papi-uat.finloopg.com/flp-mktdata-hub/v1/stock/quote`
 
 **请求头：**
 - `Content-Type: application/json`（必填）
@@ -466,8 +466,8 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 4. **认证信息**：部分接口（如AI热闻列表）可能需要 Cookie 认证，确保在请求时携带 `sl-session` Cookie
 
 5. **接口路径**：使用完整的接口路径，包括基础域名和接口路径
-   - 资讯相关接口：`https://aiapi-sit.finloopg.com`
-   - 股票行情接口：`https://papi-sit.finloopg.com`
+   - 资讯相关接口：`https://ai-uat.finloopg.com`
+   - 股票行情接口：`https://papi-uat.finloopg.com`
 
 6. **响应处理**：接口返回格式为 `{ code: 200, data: {...} }`，需要检查 `code` 字段判断请求是否成功，并从 `data` 字段获取实际数据
 
@@ -478,8 +478,8 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 9. **股票行情查询**：查询股票行情时必须包含所有返回的字段信息，如果用户提到股票名称或指数名称，需要依靠 skill 来主动转换为对应的股票代码（ISIN格式）
 
 10. **调用示例**：
-    - ✅ 正确：直接使用 `fetch('https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })`
-    - ✅ 正确：直接使用 `curl -X POST --location 'https://aiapi-sit.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast' --header 'Content-Type: application/json' --data '{}'`
+    - ✅ 正确：直接使用 `fetch('https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })`
+    - ✅ 正确：直接使用 `curl -X POST --location 'https://ai-uat.finloopg.com/flp-news-api/v1/news-agent/financeBreakfast' --header 'Content-Type: application/json' --data '{}'`
     - ❌ 错误：创建 `api/news.ts` 文件并封装函数
     - ❌ 错误：使用 `import { getFinanceBreakfast } from '@/api/news'`
 
