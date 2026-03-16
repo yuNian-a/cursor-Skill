@@ -27,7 +27,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 1. **必须直接使用 HTTP 请求调用接口**：使用 fetch、axios、curl 或其他 HTTP 客户端直接调用接口，禁止创建任何封装函数或 JS 文件
 2. **禁止创建封装函数**：不要创建任何 `.js`、`.ts` 文件来封装接口调用，必须直接使用 HTTP 请求
 3. **接口基础域名**：
-   - 资讯相关接口：`https://ai-uat.finloopg.com`
+   - 资讯相关接口：`https://ai-uat.finloopfintech.com`
    - 股票行情接口：`https://papi-uat.finloopg.com`
 4. **请求头**：`Content-Type: application/json`
 5. **响应格式**：接口返回的数据结构为 `{ code: 200, data: {...} }`，需要从响应中提取 `data` 字段
@@ -466,7 +466,7 @@ description: 当需要调用Finloop资讯相关接口时，请参考此规范。
 4. **认证信息**：部分接口（如AI热闻列表）可能需要 Cookie 认证，确保在请求时携带 `sl-session` Cookie
 
 5. **接口路径**：使用完整的接口路径，包括基础域名和接口路径
-   - 资讯相关接口：`https://ai-uat.finloopg.com`
+   - 资讯相关接口：`https://ai-uat.finloopfintech.com`
    - 股票行情接口：`https://papi-uat.finloopg.com`
 
 6. **响应处理**：接口返回格式为 `{ code: 200, data: {...} }`，需要检查 `code` 字段判断请求是否成功，并从 `data` 字段获取实际数据
